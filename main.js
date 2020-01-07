@@ -1,3 +1,18 @@
+//Add tokenStream
+//Add token
+
+function primary(){
+
+}
+
+function term(){
+
+}
+
+function expression(){
+
+}
+
 function calculate(str){
     return '0';
 }
