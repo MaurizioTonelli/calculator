@@ -22,7 +22,6 @@ function primary(obj){
     switch(token.type){
         case 'int':
             return token.value;
-            break;
         case 'operator':
             if(token.value == '('){
                 let left = expression(obj);
@@ -39,8 +38,34 @@ function primary(obj){
 
 function term(obj){
     let left = primary(obj);
+    let token = getToken(obj);
     while(true){
-        
+        switch(token.value){
+            case '*':
+                left*=primary(obj);
+                token = getToken(obj);
+                break;
+            case '/':
+                left/=primary(obj);
+                token = getToken(obj);
+                break;
+            case '(':
+                let d = primary(obj);
+                left*=d;
+                token = getToken(obj);
+                if(token.value != ')'){
+                    return 'error';
+                }
+                token = getToken(obj);
+                break;
+            default:
+                if(Number.isNaN(left) || left[0] == 'e'){
+                    return 'Error';
+                }
+                let ch = token.value;
+                obj.value = ch + obj.value;
+                return left;
+        }
     }
 }
 
@@ -50,14 +75,17 @@ function expression(obj){
     while(true){
         switch(token.value){
             case '+':
-                left+=term(obj);
+                left=Number(left)+Number(term(obj));
                 token = getToken(obj);
                 break;
             case '-':
-                left-=term(obj);
+                left=Number(left)-Number(term(obj));
                 token = getToken(obj);
                 break;
             default:
+                if(Number.isNaN(left) || left[0] == 'e'){
+                    return 'Error';
+                }
                 let ch = token.value;
                 obj.value = ch + obj.value;
                 return left;
