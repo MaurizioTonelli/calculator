@@ -39,10 +39,30 @@ function primary(obj){
 
 function term(obj){
     let left = primary(obj);
+    while(true){
+        
+    }
 }
 
 function expression(obj){
     let left = term(obj);
+    let token = getToken(obj);
+    while(true){
+        switch(token.value){
+            case '+':
+                left+=term(obj);
+                token = getToken(obj);
+                break;
+            case '-':
+                left-=term(obj);
+                token = getToken(obj);
+                break;
+            default:
+                let ch = token.value;
+                obj.value = ch + obj.value;
+                return left;
+        }
+    }
 }
 
 function calculate(str){
