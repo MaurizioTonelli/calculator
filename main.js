@@ -101,18 +101,43 @@ function calculate(str){
 
 function writeToDisplay(e){
     const display = document.querySelector('.display');
-    if(this.id == "clear"){
-        display.textContent = "0";
-        return;
-    }
-    if(this.id == "="){
-        display.textContent = calculate(display.textContent);
-        return;
-    }
-    if(display.textContent == '0'){
-        display.textContent = this.id;
-    }else{
-        display.textContent += this.id;
+    if(e.type == 'click'){
+        if(this.id == "clear"){
+            display.textContent = "0";
+            return;
+        }
+        if(this.id == "="){
+            display.textContent = calculate(display.textContent);
+            return;
+        }
+        if(display.textContent == '0' || display.textContent == 'Error'){
+            display.textContent = this.id;
+        }else{
+            display.textContent += this.id;
+        }
+    }else if(e.type == 'keydown'){
+        const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+        if(e.key=='Backspace'){
+            if(display.textContent.length >1){
+                display.textContent=display.textContent.slice(0,-1);
+            }else{
+                display.textContent='0';
+            }
+        }
+        if(!key)return;
+        if(key.id == "clear"){
+            display.textContent = "0";
+            return;
+        }
+        if(key.id == "=" || e.key == "="){
+            display.textContent = calculate(display.textContent);
+            return;
+        }
+        if(display.textContent == '0' || display.textContent == 'Error'){
+            display.textContent = e.key;
+        }else{
+            display.textContent += e.key;
+        }
     }
 }
 
@@ -120,3 +145,4 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(button=>{
     button.addEventListener('click', writeToDisplay);
 });
+window.addEventListener('keydown', writeToDisplay);
