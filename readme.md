@@ -8,3 +8,22 @@ Project plan:
 3.  Add operator functions
 4.  Add triggers to buttons
 5.  Add function to calculate the result and output to DOM
+
+After the project:
+
+I used concepts from chapter 6 of the book "Programming Principles and Practices Using C++" by Bjarne Stroustrup to complete this calculator. Parsing concepts became very important for this project when I tried to follow PEMDAS hierarchy rules. A grammar was used to define:
+
+Number:
+    -Floating point decimal
+
+Primary:
+    -"("Expression")"
+    -Number
+
+Term:
+    -Term * Primary
+    -Term / Primary
+
+Expression:
+    -Expression + Term
+    -Expression - Term
