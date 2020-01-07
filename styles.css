@@ -41,6 +41,7 @@ h1{
     margin: 10px;
     font-family: 'Courier New', Courier, monospace;
     overflow: auto;
+    white-space: nowrap;
 }
 .operator{
     background-color: #989898;
